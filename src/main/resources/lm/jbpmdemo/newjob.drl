@@ -1,0 +1,207 @@
+//created on: Jun 22, 2018
+
+package lm.jbpmdemo;
+import lm.Profile;
+import java.util.List;
+import java.util.ArrayList;
+import java.lang.String;
+
+
+rule "RJ01" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Switch Jobs"), firstQuestion==true, quovoData==false)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Congratulations, on your new position.Our data indicates that you have not yet linked your financial records through Quovo. We would love to have an opportunity to analyze your financial profile to better serve you. Please connect to Quovo data source.");
+  List<String> options = new ArrayList<String>();
+  options.add("Ok");
+  options.add("May be Later");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ rule "RJ02" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Switch Jobs"), firstQuestion==true, quovoData==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("As you embark on your new job, our financial advisors can help you with setting or rolling over any 401k plans. Please let us know whether you are interested in pursuing further in this regard?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ rule "RJ03" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Switch Jobs"), previousQuestion=="Congratulations, on your new position.Our data indicates that you have not yet linked your financial records through Quovo. We would love to have an opportunity to analyze your financial profile to better serve you. Please connect to Quovo data source.", previousAnswer=="Ok")
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Thanks ! Linking your financial records through Quovo will help us analyze your needs better. You will be automatically redirected to My Threads page after this Chat session, where you can Link your financial institution(s) through Quovo.");
+  List<String> options = new ArrayList<String>();
+  options.add("Continue");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+
+ rule "RJ03a" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Switch Jobs"), previousQuestion=="Thanks ! Linking your financial records through Quovo will help us analyze your needs better. You will be automatically redirected to My Threads page after this Chat session, where you can Link your financial institution(s) through Quovo.")
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("As you embark on your new job, our financial advisors can help you with setting or rolling over any 401k plans. Please let us know whether you are interested in pursuing further in this regard?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+  
+ rule "RJ04" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Switch Jobs"), previousQuestion=="Congratulations, on your new position.Our data indicates that you have not yet linked your financial records through Quovo. We would love to have an opportunity to analyze your financial profile to better serve you. Please connect to Quovo data source.", previousAnswer=="May be Later")
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("As you embark on your new job, our financial advisors can help you with setting or rolling over any 401k plans. Please let us know whether you are interested in pursuing further in this regard?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+  rule "RJ05" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Switch Jobs"), previousQuestion=="As you embark on your new job, our financial advisors can help you with setting or rolling over any 401k plans. Please let us know whether you are interested in pursuing further in this regard?", previousAnswer=="Yes")
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question & RecommendGoal");
+  profileObject.setNextQuestion("Are you relocating for this new opportunity? If you are, our financial advisors can help you with a financial plan to buy or rent a property. Please advise whether you would like one of our financial advisors to contact you?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("1c1fde7b-e859-4d10-a1fc-1569308a0046");
+  profileObject.setSignalGoal(null);
+ end
+ 
+   rule "RJ06" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Switch Jobs"), previousQuestion=="As you embark on your new job, our financial advisors can help you with setting or rolling over any 401k plans. Please let us know whether you are interested in pursuing further in this regard?", previousAnswer=="No")
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Are you relocating for this new opportunity? If you are, our financial advisors can help you with a financial plan to buy or rent a property. Please advise whether you would like one of our financial advisors to contact you?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+   rule "RJ07" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Switch Jobs"), previousQuestion=="Are you relocating for this new opportunity? If you are, our financial advisors can help you with a financial plan to buy or rent a property. Please advise whether you would like one of our financial advisors to contact you?", previousAnswer=="Yes")
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question & RecommendGoal");
+  profileObject.setNextQuestion("Are you in the market for buying or leasing a car? Our IAs can help you with cost benefit analysis. Would you be interested in discussing this with us?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("7130b086-ab20-4021-92a6-cebf1469c286");
+  profileObject.setSignalGoal(null);
+ end
+ 
+    rule "RJ08" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Switch Jobs"), previousQuestion=="Are you relocating for this new opportunity? If you are, our financial advisors can help you with a financial plan to buy or rent a property. Please advise whether you would like one of our financial advisors to contact you?", previousAnswer=="No")
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Are you in the market for buying or leasing a car? Our IAs can help you with cost benefit analysis. Would you be interested in discussing this with us?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+    rule "RJ09" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Switch Jobs"), previousQuestion=="Are you in the market for buying or leasing a car? Our IAs can help you with cost benefit analysis. Would you be interested in discussing this with us?", previousAnswer=="Yes")
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question & RecommendGoal");
+  profileObject.setNextQuestion("Our investment advisors are equipped with latest tools and strategies to help individuals that may have recently experienced increase in salary or have surplus cash. Are you interested in engaging in exploratory discussion with our advisors?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("ba0c2b8f-4161-4abf-bf81-28a08d0f7c28");
+  profileObject.setSignalGoal(null);
+ end
+ 
+     rule "RJ10" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Switch Jobs"), previousQuestion=="Are you in the market for buying or leasing a car? Our IAs can help you with cost benefit analysis. Would you be interested in discussing this with us?", previousAnswer=="No")
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Our investment advisors are equipped with latest tools and strategies to help individuals that may have recently experienced increase in salary or have surplus cash. Are you interested in engaging in exploratory discussion with our advisors?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+     rule "RJ11" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Switch Jobs"), previousQuestion=="Our investment advisors are equipped with latest tools and strategies to help individuals that may have recently experienced increase in salary or have surplus cash. Are you interested in engaging in exploratory discussion with our advisors?", previousAnswer=="Yes")
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal("6dd565d9-561d-48ae-9812-4a69475d6ae6");
+  profileObject.setSignalGoal(null);
+ end
+ 
+     rule "RJ12" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Switch Jobs"), previousQuestion=="Are you in the market for buying or leasing a car? Our IAs can help you with cost benefit analysis. Would you be interested in discussing this with us?", previousAnswer=="No")
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end

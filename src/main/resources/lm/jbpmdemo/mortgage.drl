@@ -1,0 +1,293 @@
+//created on: 13 May, 2018
+
+package lm.jbpmdemo;
+import lm.Profile;
+import java.util.List;
+import java.util.ArrayList;
+import java.lang.String;
+
+rule "Rule001" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), firstQuestion==true, tag!="crime", tag!="tax rate", tag!="commute")
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Are you planning to buy a house?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+
+rule "Rule002" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="Are you planning to buy a house?", previousAnswer=="Yes")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("When are you planning to buy a house ?");
+  List<String> options = new ArrayList<String>();
+  options.add("Within 6 months");
+  options.add("In 6m - 2 yrs");
+  options.add("After 2 yrs");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+ rule "Rule003" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="Are you planning to buy a house?", previousAnswer=="No")
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+ rule "Rule004" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="When are you planning to buy a house ?", previousAnswer=="Within 6 months")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Do you have savings for buying a new house?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+  rule "Rule005" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="When are you planning to buy a house ?", previousAnswer=="In 6m - 2 yrs")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Which kind of home do u prefer ?");
+  List<String> options = new ArrayList<String>();
+  options.add("Independent House");
+  options.add("Apartments");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+   rule "Rule006" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="When are you planning to buy a house ?", previousAnswer=="After 2 yrs")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Which kind of home do u prefer ?");
+  List<String> options = new ArrayList<String>();
+  options.add("Independent House");
+  options.add("Apartments");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+ 
+    rule "Rule007" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="Which kind of home do u prefer ?", previousAnswer=="Independent House")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Do you have savings for buying a new house?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+    rule "Rule008" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="Which kind of home do u prefer ?", previousAnswer=="Apartments")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Do you have savings for buying a new house?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+ 
+     rule "Rule009" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="Do you have savings for buying a new house?", previousAnswer=="No")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("What is your budget ?(USD)");
+  List<String> options = new ArrayList<String>();
+  options.add("< 500,000");
+  options.add("500,000 - 1,000,000");
+  options.add("> 1,000,000");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+     rule "Rule010" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="Do you have savings for buying a new house?", previousAnswer=="Yes")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("What is your budget ?(USD)");
+  List<String> options = new ArrayList<String>();
+  options.add("< 500,000");
+  options.add("500,000 - 1,000,000");
+  options.add("> 1,000,000");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+      rule "Rule011" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="What is your budget ?(USD)", previousAnswer=="< 500,000")
+ then
+ System.out.println("loan Type : "+profileObject.getLoanType());
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("How much are your planning to pay as down-payment?");
+  List<String> options = new ArrayList<String>();
+  options.add("< 20%");
+  options.add("20-60%");
+  options.add("> 60%");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+       rule "Rule012" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="What is your budget ?(USD)", previousAnswer=="500,000 - 1,000,000")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("How much are your planning to pay as down-payment?");
+  List<String> options = new ArrayList<String>();
+  options.add("< 20%");
+  options.add("20-60%");
+  options.add("> 60%");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+ 
+       rule "Rule013" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="What is your budget ?(USD)", previousAnswer=="> 1,000,000")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("How much are your planning to pay as down-payment?");
+  List<String> options = new ArrayList<String>();
+  options.add("< 20%");
+  options.add("20-60%");
+  options.add("> 60%");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+        rule "Rule014" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="How much are your planning to pay as down-payment?", loanType=="Mortgage")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("You already have a Mortgage. Are you sure you want another Mortgage?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+rule "Rule015" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="How much are your planning to pay as down-payment?", loanType!="Mortgage")
+ then
+      profileObject.setNextAction(null);
+	  profileObject.setNextQuestion("You seem to be having sufficient surplus cash. Would you like to consider some Investment options?");
+  //profileObject.setNextQuestion("Are you also planning to purchase a car?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("7130b086-ab20-4021-92a6-cebf1469c286");
+  profileObject.setSignalGoal(null);
+ end
+ 
+          rule "Rule019" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="You already have a Mortgage. Are you sure you want another Mortgage?", previousAnswer=="Yes")
+ then
+    profileObject.setNextAction("Recommend Goal");
+  profileObject.setRecommendGoal("7130b086-ab20-4021-92a6-cebf1469c286");
+  profileObject.setSignalGoal(null);
+  profileObject.setNextQuestion(null);
+ end
+ 
+           rule "Rule020" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="You already have a Mortgage. Are you sure you want another Mortgage?", previousAnswer=="No")
+ then
+ 	profileObject.setNextQuestion(null);
+    profileObject.setNextAction(null);
+   profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ rule "Rule021" ruleflow-group "actions"
+ when 
+  profileObject: Profile(previousQuestion=="You seem to be having sufficient surplus cash. Would you like to consider some Investment options?", previousAnswer=="Yes")
+ then
+    profileObject.setNextAction("question");
+    profileObject.setRecommendGoal(null);
+    profileObject.setSignalGoal(null);
+    profileObject.setGoal("Investment");
+    profileObject.setNextQuestion("Would you like to consider more Investment Options ?");
+    List<String> options = new ArrayList<String>();
+    options.add("Yes");
+    options.add("No");
+    profileObject.setOptions(options);
+end
+
+  rule "Rule021a" ruleflow-group "actions"
+ when 
+  profileObject: Profile(previousQuestion=="Another Goal is triggered for you. Do you have anything ?")
+ then
+    profileObject.setNextAction(null);
+    profileObject.setNextQuestion(null);
+   profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+  rule "Rule022" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="You seem to be having sufficient surplus cash. Would you like to consider some Investment options?", previousAnswer=="No")
+ then
+    profileObject.setNextAction(null);
+    profileObject.setNextQuestion(null);
+   profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 

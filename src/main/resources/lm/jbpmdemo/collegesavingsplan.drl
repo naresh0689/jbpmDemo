@@ -1,0 +1,423 @@
+//created on: 15 Jun, 2018
+
+package lm.jbpmdemo;
+import lm.Profile;
+import java.util.List;
+import java.util.ArrayList;
+import java.lang.String;
+
+rule "CSP001" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), firstQuestion==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Our data indicates that you have dependents but no college savings plans. Please tell us if this is accurate?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+
+rule "CSP002" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Our data indicates that you have dependents but no college savings plans. Please tell us if this is accurate?", previousAnswer=="Yes")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Is this something that you would be interested in pursuing?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+
+ rule "CSP003" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Is this something that you would be interested in pursuing?", previousAnswer=="Yes", yoyTrend==true)
+ then
+      profileObject.setNextAction("question & RecommendGoal");
+  profileObject.setNextQuestion("We are thrilled to see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("7c5f5e9e-a8a6-433b-938a-0d0b7ce26c63");
+  profileObject.setSignalGoal(null);
+ end
+ 
+ rule "CSP004" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Is this something that you would be interested in pursuing?", previousAnswer=="Yes", yoyTrend==false,mortgageNetIncomeRatio>=28.0)
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("It is recommended that max mortgage payment not exceed 28% of your gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("7c5f5e9e-a8a6-433b-938a-0d0b7ce26c63");
+  profileObject.setSignalGoal(null);
+ end
+
+ rule "CSP0015" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Is this something that you would be interested in pursuing?", previousAnswer=="Yes", yoyTrend==false,mortgageNetIncomeRatio<28.0,flatTrend==true)
+ then
+      profileObject.setNextAction("question");
+        profileObject.setNextQuestion("Our analysis of your financial status indicates that you have been successful in maintaining your current net income levels steady for the past three years. Would you like to discuss small business investment to increase your revenues/net-income ?");
+      List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("7c5f5e9e-a8a6-433b-938a-0d0b7ce26c63");
+  profileObject.setSignalGoal(null);
+ end
+
+ rule "CSP0015a" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Is this something that you would be interested in pursuing?", previousAnswer=="Yes", yoyTrend==false,mortgageNetIncomeRatio<28.0,flatTrend==false)
+ then
+      profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal("7c5f5e9e-a8a6-433b-938a-0d0b7ce26c63");
+  profileObject.setSignalGoal(null);
+ end
+
+ rule "CSP0016" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Is this something that you would be interested in pursuing?", previousAnswer=="No", mortgageNetIncomeRatio>=28.0)
+ then
+    profileObject.setNextAction("question");
+  profileObject.setNextQuestion("It is recommended that max mortgage payment not exceed 28% of your gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+   
+ rule "CSP0017" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Is this something that you would be interested in pursuing?", previousAnswer=="No", mortgageNetIncomeRatio<28.0, yoyTrend==true)
+ then
+    profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Ok then. We'll keep the College Savings Goal aside for now. We see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+
+ rule "CSP0017a" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Is this something that you would be interested in pursuing?", previousAnswer=="No", mortgageNetIncomeRatio<28.0, yoyTrend==false, flatTrend==true)
+ then
+    profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Our analysis of your financial status indicates that you have been successful in maintaining your current net income levels steady for the past three years. Would you like to discuss small business investment to increase your revenues/net-income ?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+
+ rule "CSP0017b" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Is this something that you would be interested in pursuing?", previousAnswer=="No", mortgageNetIncomeRatio<28.0, yoyTrend==false, flatTrend==false)
+ then
+    profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+    
+ rule "CSP005" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Our data indicates that you have dependents but no college savings plans. Please tell us if this is accurate?", previousAnswer=="No", mortgageNetIncomeRatio>=28.0)
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("It is recommended that max mortgage payment not exceed 28% of your gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ rule "CSP006" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="It is recommended that max mortgage payment not exceed 28% of your gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?", previousAnswer=="No", yoyTrend==true)
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ rule "CSP007" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="It is recommended that max mortgage payment not exceed 28% of your gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?", previousAnswer=="Yes")
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal("e5660937-38d0-47b2-8a99-5c12d585712c");
+  profileObject.setSignalGoal(null);
+ end
+ 
+  rule "CSP008" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Our data indicates that you have dependents but no college savings plans. Please tell us if this is accurate?", previousAnswer=="No", mortgageNetIncomeRatio<28.0, yoyTrend==true)
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Ok then. We'll keep the College Savings Goal aside for now. We see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ rule "CSP009" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Our data indicates that you have dependents but no college savings plans. Please tell us if this is accurate?", previousAnswer=="No", mortgageNetIncomeRatio<28.0, yoyTrend==false, flatTrend==false)
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+
+ rule "CSP0014" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Our data indicates that you have dependents but no college savings plans. Please tell us if this is accurate?", previousAnswer=="No", mortgageNetIncomeRatio<28.0, yoyTrend==false, flatTrend==true)
+ then
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Our analysis of your financial status indicates that you have been successful in maintaining your current net income levels steady for the past three years. Would you like to discuss small business investment to increase your revenues/net-income ?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ rule "CSP0010" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="We are thrilled to see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?", previousAnswer=="Yes",flatTrend==true)
+ then
+  profileObject.setNextAction("question & RecommendGoal");
+  profileObject.setNextQuestion("Our analysis of your financial status indicates that you have been successful in maintaining your current net income levels steady for the past three years. Would you like to discuss small business investment to increase your revenues/net-income ?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("12c836cc-54c9-47d0-8c8f-5c12325fac70");
+  profileObject.setSignalGoal(null);
+ end
+
+ rule "CSP0011" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="We are thrilled to see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?", previousAnswer=="Yes",flatTrend==false, mortgageNetIncomeRatio<28.0)
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal("12c836cc-54c9-47d0-8c8f-5c12325fac70");
+  profileObject.setSignalGoal(null);
+ end 
+
+ rule "CSP0011a" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="We are thrilled to see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?", previousAnswer=="Yes",flatTrend==false, mortgageNetIncomeRatio>=28.0)
+ then
+  profileObject.setNextAction("question & RecommendGoal");
+  profileObject.setNextQuestion("It is recommended that max mortgage payment not exceed 28% of your gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("12c836cc-54c9-47d0-8c8f-5c12325fac70");
+  profileObject.setSignalGoal(null);
+ end
+  
+  rule "CSP0012" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="We are thrilled to see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?", previousAnswer=="No",flatTrend==true)
+ then
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Our analysis of your financial status indicates that you have been successful in maintaining your current net income levels steady for the past three years. Would you like to discuss small business investment to increase your revenues/net-income ?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+  rule "CSP0013" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="We are thrilled to see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?", previousAnswer=="No",flatTrend==false)
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end 
+ 
+   rule "CSP0018" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Ok then. We'll keep the College Savings Goal aside for now. We see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?", previousAnswer=="Yes",flatTrend==false)
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal("12c836cc-54c9-47d0-8c8f-5c12325fac70");
+  profileObject.setSignalGoal(null);
+ end 
+ 
+   rule "CSP0019" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Ok then. We'll keep the College Savings Goal aside for now. We see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?", previousAnswer=="Yes",flatTrend==true)
+ then
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Our analysis of your financial status indicates that you have been successful in maintaining your current net income levels steady for the past three years. Would you like to discuss small business investment to increase your revenues/net-income ?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("12c836cc-54c9-47d0-8c8f-5c12325fac70");
+  profileObject.setSignalGoal(null);
+ end  
+
+   rule "CSP0020" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Ok then. We'll keep the College Savings Goal aside for now. We see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?", previousAnswer=="No",flatTrend==true)
+ then
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Our analysis of your financial status indicates that you have been successful in maintaining your current net income levels steady for the past three years. Would you like to discuss small business investment to increase your revenues/net-income ?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end  
+ 
+    rule "CSP0021" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Ok then. We'll keep the College Savings Goal aside for now. We see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?", previousAnswer=="No",flatTrend==false)
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end  
+ 
+     rule "CSP0022" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="It is recommended that max mortgage payment not exceed 28% of your gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?", previousAnswer=="Yes",yoyTrend==true)
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion("We are thrilled to see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("e5660937-38d0-47b2-8a99-5c12d585712c");
+  profileObject.setSignalGoal(null);
+ end  
+ 
+      rule "CSP0023" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="It is recommended that max mortgage payment not exceed 28% of your gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?", previousAnswer=="Yes",yoyTrend==false, flatTrend==true)
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion("Our analysis of your financial status indicates that you have been successful in maintaining your current net income levels steady for the past three years. Would you like to discuss small business investment to increase your revenues/net-income ?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("e5660937-38d0-47b2-8a99-5c12d585712c");
+  profileObject.setSignalGoal(null);
+ end  
+ 
+       rule "CSP0024" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="It is recommended that max mortgage payment not exceed 28% of your gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?", previousAnswer=="Yes",yoyTrend==false, flatTrend==false)
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal("e5660937-38d0-47b2-8a99-5c12d585712c");
+  profileObject.setSignalGoal(null);
+ end  
+
+ rule "CSP25" ruleflow-group "actions"
+ when 
+  profileObject: Profile(previousQuestion=="It is recommended that max mortgage payment not exceed 28% of your gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?", previousAnswer=="No", yoyTrend==true)
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("We are thrilled to see an uptrend in your year-over-year savings amount. Also, we recognize that you are an entrepreneur and that there are SEP IRA plans that are more preferable to your current traditional IRA plans. Would you like us to perform a portfolio analysis or provide you with SEP IRA detail?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+rule "CSP25a" ruleflow-group "actions"
+ when 
+  profileObject: Profile(previousQuestion=="It is recommended that max mortgage payment not exceed 28% of your gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?", previousAnswer=="No", yoyTrend==false, flatTrend==true)
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Our analysis of your financial status indicates that you have been successful in maintaining your current net income levels steady for the past three years. Would you like to discuss small business investment to increase your revenues/net-income ?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+rule "CSP25b" ruleflow-group "actions"
+ when 
+  profileObject: Profile(previousQuestion=="It is recommended that max mortgage payment not exceed 28% of your gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?", previousAnswer=="No", yoyTrend==false, flatTrend==false)
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+         rule "CSP0027" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Our analysis of your financial status indicates that you have been successful in maintaining your current net income levels steady for the past three years. Would you like to discuss small business investment to increase your revenues/net-income ?", previousAnswer=="No")
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end  
+ 
+          rule "CSP0028" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("College Savings Plan"), previousQuestion=="Our analysis of your financial status indicates that you have been successful in maintaining your current net income levels steady for the past three years. Would you like to discuss small business investment to increase your revenues/net-income ?", previousAnswer=="Yes")
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal("ce97dfe3-bddf-4f19-99e9-32ca99d749d5");
+  profileObject.setSignalGoal(null);
+ end
+ 
+  

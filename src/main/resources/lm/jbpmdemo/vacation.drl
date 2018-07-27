@@ -1,0 +1,80 @@
+package lm.jbpmdemo;
+import lm.UserProfile;
+import java.util.List;
+import java.util.ArrayList;
+import java.lang.String;
+
+rule "IR1" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("Vacation"), firstQuestion==true)
+ then
+ System.out.println("goal = "+profileObject.getGoal());
+ System.out.println("isFirstQuestion = "+profileObject.getFirstQuestion());
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Goal Vacation Q1 : Do you plan to go for a vacation?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  System.out.println("user ID : "+profileObject.getUserId());
+  profileObject.setUserId(profileObject.getUserId());
+  profileObject.setRecommendGoal(null);
+    profileObject.setSignalGoal(null);
+ end
+
+rule "IR4" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("Vacation"), previousQuestion=="Goal Vacation Q1 : Do you plan to go for a vacation?", answer=="Yes")
+ then
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Goal Vacation Q2");
+    List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  System.out.println("user ID : "+profileObject.getUserId());
+  profileObject.setUserId(profileObject.getUserId());
+  profileObject.setRecommendGoal(null);
+    profileObject.setSignalGoal(null);
+ end
+  
+rule "IR5" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("Vacation"), previousQuestion=="Goal Vacation Q2")
+ then
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Goal Vacation Q3");
+    List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  System.out.println("user ID : "+profileObject.getUserId());
+  profileObject.setUserId(profileObject.getUserId());
+  profileObject.setRecommendGoal(null);
+    profileObject.setSignalGoal(null);
+ end
+  
+rule "IR2" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("Vacation"), previousQuestion=="Goal Vacation Q3")
+ then
+     profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  System.out.println("user ID : "+profileObject.getUserId());
+  profileObject.setUserId(profileObject.getUserId());
+  profileObject.setRecommendGoal("625c8332-aa08-4cc2-8e4d-be7f7f39b6c0");
+    profileObject.setSignalGoal(null);
+ end
+ 
+rule "IR3" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("Vacation"), previousQuestion=="Goal Vacation Q1 : Do you plan to go for a vacation?", answer=="No")
+ then
+     profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  System.out.println("user ID : "+profileObject.getUserId());
+  profileObject.setUserId(profileObject.getUserId());
+  profileObject.setRecommendGoal(null);
+    profileObject.setSignalGoal(null);
+ end

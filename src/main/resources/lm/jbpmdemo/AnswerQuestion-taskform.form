@@ -1,0 +1,399 @@
+
+<form id="592111487">
+<property name="name" value="AnswerQuestion-taskform.form"/>
+<property name="displayMode" value="default"/>
+<property name="status" value="0"/>
+<field position="0" name="userprofile_accountCategory" type="InputText" id="1479055632">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;accountCategory (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/accountCategory"/>
+<property name="outputBinding" value="userprofileOut/accountCategory"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="1" name="userprofile_accountOwnerType" type="InputText" id="495820980">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;accountOwnerType (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/accountOwnerType"/>
+<property name="outputBinding" value="userprofileOut/accountOwnerType"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="2" name="userprofile_accountType" type="InputText" id="1656344797">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;accountType (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/accountType"/>
+<property name="outputBinding" value="userprofileOut/accountType"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="3" name="userprofile_accountValue" type="InputTextDouble" id="72800321">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;accountValue (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/accountValue"/>
+<property name="outputBinding" value="userprofileOut/accountValue"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="4" name="userprofile_balance" type="InputTextDouble" id="1211610654">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;balance (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/balance"/>
+<property name="outputBinding" value="userprofileOut/balance"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="5" name="userprofile_ccDebtAmount" type="InputTextDouble" id="1037128440">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;ccDebtAmount (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/ccDebtAmount"/>
+<property name="outputBinding" value="userprofileOut/ccDebtAmount"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="6" name="userprofile_ccDebtAndIncomeRatio" type="InputTextDouble" id="987292410">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;ccDebtAndIncomeRatio (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/ccDebtAndIncomeRatio"/>
+<property name="outputBinding" value="userprofileOut/ccDebtAndIncomeRatio"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="7" name="userprofile_collegeSavingsPlan" type="CheckBoxPrimitiveBoolean" id="1464322110">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;collegeSavingsPlan (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/collegeSavingsPlan"/>
+<property name="outputBinding" value="userprofileOut/collegeSavingsPlan"/>
+<property name="fieldClass" value="boolean"/>
+</field>
+<field position="8" name="userprofile_connectionValue" type="InputTextDouble" id="1025944530">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;connectionValue (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/connectionValue"/>
+<property name="outputBinding" value="userprofileOut/connectionValue"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="9" name="userprofile_creditCardLastPayment" type="InputTextDouble" id="490688205">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;creditCardLastPayment (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/creditCardLastPayment"/>
+<property name="outputBinding" value="userprofileOut/creditCardLastPayment"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="10" name="userprofile_creditCardOverdue" type="CheckBoxPrimitiveBoolean" id="1991271812">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;creditCardOverdue (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/creditCardOverdue"/>
+<property name="outputBinding" value="userprofileOut/creditCardOverdue"/>
+<property name="fieldClass" value="boolean"/>
+</field>
+<field position="11" name="userprofile_creditLimit" type="InputTextDouble" id="308221879">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;creditLimit (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/creditLimit"/>
+<property name="outputBinding" value="userprofileOut/creditLimit"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="12" name="userprofile_debtAmount" type="InputTextDouble" id="1490356488">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;debtAmount (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/debtAmount"/>
+<property name="outputBinding" value="userprofileOut/debtAmount"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="13" name="userprofile_debtAndIncomeRatio" type="InputTextDouble" id="2146035912">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;debtAndIncomeRatio (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/debtAndIncomeRatio"/>
+<property name="outputBinding" value="userprofileOut/debtAndIncomeRatio"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="14" name="userprofile_educationSavingsExistance" type="CheckBoxPrimitiveBoolean" id="257575915">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;educationSavingsExistance (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/educationSavingsExistance"/>
+<property name="outputBinding" value="userprofileOut/educationSavingsExistance"/>
+<property name="fieldClass" value="boolean"/>
+</field>
+<field position="15" name="userprofile_flatTrend" type="CheckBoxPrimitiveBoolean" id="1932831901">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;flatTrend (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/flatTrend"/>
+<property name="outputBinding" value="userprofileOut/flatTrend"/>
+<property name="fieldClass" value="boolean"/>
+</field>
+<field position="16" name="userprofile_goal" type="InputText" id="1999299372">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;goal (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/goal"/>
+<property name="outputBinding" value="userprofileOut/goal"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="17" name="userprofile_goalId" type="InputText" id="1500809826">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;goalId (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/goalId"/>
+<property name="outputBinding" value="userprofileOut/goalId"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="18" name="userprofile_id" type="InputTextLong" id="1240423077">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;id (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/id"/>
+<property name="outputBinding" value="userprofileOut/id"/>
+<property name="fieldClass" value="java.lang.Long"/>
+</field>
+<field position="19" name="userprofile_incomeIncrease" type="CheckBoxPrimitiveBoolean" id="560362488">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;incomeIncrease (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/incomeIncrease"/>
+<property name="outputBinding" value="userprofileOut/incomeIncrease"/>
+<property name="fieldClass" value="boolean"/>
+</field>
+<field position="20" name="userprofile_insightsList" bag-type="java.lang.String" type="MultipleInput" id="1614763729">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;insightsList (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/insightsList"/>
+<property name="outputBinding" value="userprofileOut/insightsList"/>
+<property name="fieldClass" value="java.util.List"/>
+</field>
+<field position="21" name="userprofile_insuranceDeathBenefit" type="InputTextDouble" id="2106551633">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;insuranceDeathBenefit (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/insuranceDeathBenefit"/>
+<property name="outputBinding" value="userprofileOut/insuranceDeathBenefit"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="22" name="userprofile_insuranceSurrenderValue" type="InputTextDouble" id="982271651">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;insuranceSurrenderValue (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/insuranceSurrenderValue"/>
+<property name="outputBinding" value="userprofileOut/insuranceSurrenderValue"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="23" name="userprofile_loanType" type="InputText" id="1421497457">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;loanType (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/loanType"/>
+<property name="outputBinding" value="userprofileOut/loanType"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="24" name="userprofile_messageId" type="InputText" id="387455653">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;messageId (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/messageId"/>
+<property name="outputBinding" value="userprofileOut/messageId"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="25" name="userprofile_monthlyExpenses" type="InputTextDouble" id="287194143">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;monthlyExpenses (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/monthlyExpenses"/>
+<property name="outputBinding" value="userprofileOut/monthlyExpenses"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="26" name="userprofile_monthlyIncome" type="InputTextDouble" id="285140082">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;monthlyIncome (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/monthlyIncome"/>
+<property name="outputBinding" value="userprofileOut/monthlyIncome"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="27" name="userprofile_monthlyIncomeExistance" type="CheckBoxPrimitiveBoolean" id="838782114">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;monthlyIncomeExistance (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/monthlyIncomeExistance"/>
+<property name="outputBinding" value="userprofileOut/monthlyIncomeExistance"/>
+<property name="fieldClass" value="boolean"/>
+</field>
+<field position="28" name="userprofile_mortgageAmount" type="InputTextDouble" id="1937672312">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;mortgageAmount (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/mortgageAmount"/>
+<property name="outputBinding" value="userprofileOut/mortgageAmount"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="29" name="userprofile_mortgageNetIncomeRatio" type="InputTextDouble" id="746264051">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;mortgageNetIncomeRatio (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/mortgageNetIncomeRatio"/>
+<property name="outputBinding" value="userprofileOut/mortgageNetIncomeRatio"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="30" name="userprofile_name" type="InputText" id="1526603493">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;name (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/name"/>
+<property name="outputBinding" value="userprofileOut/name"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="31" name="userprofile_nextAction" type="InputText" id="1803898416">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;nextAction (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/nextAction"/>
+<property name="outputBinding" value="userprofileOut/nextAction"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="32" name="userprofile_nextQuestion" type="InputText" id="667567360">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;nextQuestion (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/nextQuestion"/>
+<property name="outputBinding" value="userprofileOut/nextQuestion"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="33" name="userprofile_occupationHazard" type="CheckBoxPrimitiveBoolean" id="447205895">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;occupationHazard (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/occupationHazard"/>
+<property name="outputBinding" value="userprofileOut/occupationHazard"/>
+<property name="fieldClass" value="boolean"/>
+</field>
+<field position="34" name="userprofile_options" bag-type="java.lang.String" type="MultipleInput" id="209434598">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;options (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/options"/>
+<property name="outputBinding" value="userprofileOut/options"/>
+<property name="fieldClass" value="java.util.List"/>
+</field>
+<field position="35" name="userprofile_overDue" type="InputText" id="351407013">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;overDue (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/overDue"/>
+<property name="outputBinding" value="userprofileOut/overDue"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="36" name="userprofile_previousAnswer" type="InputText" id="584980357">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;previousAnswer (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/previousAnswer"/>
+<property name="outputBinding" value="userprofileOut/previousAnswer"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="37" name="userprofile_previousQuestion" type="InputText" id="1663286611">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;previousQuestion (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/previousQuestion"/>
+<property name="outputBinding" value="userprofileOut/previousQuestion"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="38" name="userprofile_processInstanceId" type="InputTextLong" id="220188187">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;processInstanceId (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/processInstanceId"/>
+<property name="outputBinding" value="userprofileOut/processInstanceId"/>
+<property name="fieldClass" value="java.lang.Long"/>
+</field>
+<field position="39" name="userprofile_quovoData" type="CheckBoxPrimitiveBoolean" id="2055618899">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;quovoData (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/quovoData"/>
+<property name="outputBinding" value="userprofileOut/quovoData"/>
+<property name="fieldClass" value="boolean"/>
+</field>
+<field position="40" name="userprofile_recommendGoal" type="InputText" id="1434120963">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;recommendGoal (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/recommendGoal"/>
+<property name="outputBinding" value="userprofileOut/recommendGoal"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="41" name="userprofile_retirementAccountExistance" type="CheckBoxPrimitiveBoolean" id="2057079700">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;retirementAccountExistance (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/retirementAccountExistance"/>
+<property name="outputBinding" value="userprofileOut/retirementAccountExistance"/>
+<property name="fieldClass" value="boolean"/>
+</field>
+<field position="42" name="userprofile_savingsAmount" type="InputTextDouble" id="235956804">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;savingsAmount (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/savingsAmount"/>
+<property name="outputBinding" value="userprofileOut/savingsAmount"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="43" name="userprofile_savingsExistance" type="CheckBoxPrimitiveBoolean" id="1244090224">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;savingsExistance (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/savingsExistance"/>
+<property name="outputBinding" value="userprofileOut/savingsExistance"/>
+<property name="fieldClass" value="boolean"/>
+</field>
+<field position="44" name="userprofile_signalGoal" type="InputText" id="860092108">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;signalGoal (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/signalGoal"/>
+<property name="outputBinding" value="userprofileOut/signalGoal"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="45" name="userprofile_tag" type="InputText" id="1793572155">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;tag (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/tag"/>
+<property name="outputBinding" value="userprofileOut/tag"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="46" name="userprofile_userId" type="InputText" id="736935324">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;userId (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/userId"/>
+<property name="outputBinding" value="userprofileOut/userId"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<field position="47" name="userprofile_userValue" type="InputTextDouble" id="155720082">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;userValue (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/userValue"/>
+<property name="outputBinding" value="userprofileOut/userValue"/>
+<property name="fieldClass" value="java.lang.Double"/>
+</field>
+<field position="48" name="userprofile_yoyTrend" type="InputText" id="2033071245">
+<property name="fieldRequired" value="false"/>
+<property name="label" value="quot;enquot;,quot;yoyTrend (userprofile)quot;"/>
+<property name="readonly" value="false"/>
+<property name="inputBinding" value="userprofileIn/yoyTrend"/>
+<property name="outputBinding" value="userprofileOut/yoyTrend"/>
+<property name="fieldClass" value="java.lang.String"/>
+</field>
+<dataHolder inputId="userprofileIn" name="#E9E371" type="dataModelerEntry" outId="userprofileOut" value="lm.Profile" id="userprofile"/>
+</form>

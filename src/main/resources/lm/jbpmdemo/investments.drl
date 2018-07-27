@@ -1,0 +1,68 @@
+package lm.jbpmdemo;
+import lm.Profile;
+import java.util.List;
+import java.util.ArrayList;
+import java.lang.String;
+
+rule "Inv1" ruleflow-group "actions"
+	when 
+		profileObject: Profile(goal.contains("Investment"), firstQuestion==true)
+	then
+	System.out.println("goal = "+profileObject.getGoal());
+	System.out.println("isFirstQuestion = "+profileObject.getFirstQuestion());
+		profileObject.setFirstQuestion(false);
+	    profileObject.setNextAction("question");
+		profileObject.setNextQuestion("Would you like to consider more Investment Options ?");
+		List<String> options = new ArrayList<String>();
+		options.add("Yes");
+		options.add("No");
+		profileObject.setOptions(options);
+		System.out.println("user ID : "+profileObject.getUserId());
+		profileObject.setUserId(profileObject.getUserId());
+		profileObject.setRecommendGoal(null);
+  		profileObject.setSignalGoal(null);
+	end
+	
+	rule "Inv4" ruleflow-group "actions"
+	when 
+		profileObject: Profile(goal.contains("Investment"), previousQuestion=="Would you like to consider more Investment Options ?", previousAnswer=="Yes")
+	then
+	    profileObject.setNextAction("question");
+	//profileObject.setFirstQuestion(true);
+	profileObject.setNextQuestion("What is your budget ?");
+  List<String> options = new ArrayList<String>();
+  options.add("< 100k");
+  options.add("100k to 500k");
+  options.add("> 500k");
+  profileObject.setOptions(options);
+		System.out.println("user ID : "+profileObject.getUserId());
+		profileObject.setUserId(profileObject.getUserId());
+		profileObject.setRecommendGoal(null);
+  		profileObject.setSignalGoal(null);
+	end
+	
+	rule "Inv5" ruleflow-group "actions"
+	when 
+		profileObject: Profile(goal.contains("Investment"), previousQuestion=="What is your budget ?")
+	then
+	    profileObject.setNextAction(null);
+	//profileObject.setGoal("Personal Loan");
+	//profileObject.setFirstQuestion(true);
+	profileObject.setNextQuestion(null);
+		System.out.println("user ID : "+profileObject.getUserId());
+		profileObject.setUserId(profileObject.getUserId());
+		profileObject.setRecommendGoal("6dd565d9-561d-48ae-9812-4a69475d6ae6");
+  		profileObject.setSignalGoal(null);
+	end
+
+rule "Inv3" ruleflow-group "actions"
+	when 
+		profileObject: Profile(goal.contains("Investment"), previousQuestion=="Would you like to consider more Investment Options ?", previousAnswer=="No")
+	then
+	    profileObject.setNextAction(null);
+		profileObject.setNextQuestion(null);
+		System.out.println("user ID : "+profileObject.getUserId());
+		profileObject.setUserId(profileObject.getUserId());
+		profileObject.setRecommendGoal(null);
+  		profileObject.setSignalGoal(null);
+	end

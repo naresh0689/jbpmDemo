@@ -1,0 +1,564 @@
+//created on: 17 Jun, 2018
+
+package lm.jbpmdemo;
+import lm.UserProfile;
+import java.util.List;
+import java.util.ArrayList;
+import java.lang.String;
+
+
+rule "RF01" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("car"), firstQuestion==true, mortgageNetIncomeRatio>=28.0)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Porsche is a high-performance dream machine to drive around. Your social media posts indicate your desire to get your hands on one. We are happy to create a roadmap with you to get you into your dream car. Please let us know if you prefer to discuss further with us?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+
+ rule "RF02" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("car"), firstQuestion==true, mortgageNetIncomeRatio<28.0, debtAndIncomeRatio>=100.0)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Average credit card debt in the US is less than $20,000. It seems that your credit card debt may be more than you desire and need attention. Is this something that you would like to strategize with us?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ rule "RF02a" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("car"), firstQuestion==true, mortgageNetIncomeRatio<28.0, debtAndIncomeRatio<100.0)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Your  social media post indicates your desire to get your hands on a car. Please tell us if our understading is correct, and you are looking at buying a new car.");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+   rule "RF02b" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("car"), previousQuestion=="Your  social media post indicates your desire to get your hands on a car. Please tell us if our understading is correct, and you are looking at buying a new car.", answer=="Yes", occupationHazard==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question, RecommendGoal");
+  profileObject.setNextQuestion("Nuclear safety inspector occupation may be considered as one of the high-risk professions. Your financial records indicate inactive life insurance policy. Would you be interested in exploring disability and other insurance options to protect you and your family?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("ba0c2b8f-4161-4abf-bf81-28a08d0f7c28");
+  profileObject.setSignalGoal(null);
+ end 
+
+   rule "RF02c" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("car"), previousQuestion=="Your  social media post indicates your desire to get your hands on a car. Please tell us if our understading is correct, and you are looking at buying a new car.", answer=="Yes", occupationHazard==false, flatTrend==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question, RecommendGoal");
+  profileObject.setNextQuestion("We notice that the trend of average amount in your savings account is Flat. Would you like to take a re-look at your IRA contributions?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("ba0c2b8f-4161-4abf-bf81-28a08d0f7c28");
+  profileObject.setSignalGoal(null);
+ end
+ 
+    rule "RF02d" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("car"), previousQuestion=="Your  social media post indicates your desire to get your hands on a car. Please tell us if our understading is correct, and you are looking at buying a new car.", answer=="No", occupationHazard==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Nuclear safety inspector occupation may be considered as one of the high-risk professions. Your financial records indicate inactive life insurance policy. Would you be interested in exploring disability and other insurance options to protect you and your family?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end  
+ 
+    rule "RF02e" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("car"), previousQuestion=="Your  social media post indicates your desire to get your hands on a car. Please tell us if our understading is correct, and you are looking at buying a new car.", answer=="No", occupationHazard==false, flatTrend==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("We notice that the trend of average amount in your savings account is Flat. Would you like to take a re-look at your IRA contributions?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end  
+
+    rule "RF02f" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("car"), previousQuestion=="Your  social media post indicates your desire to get your hands on a car. Please tell us if our understading is correct, and you are looking at buying a new car.", answer=="No", occupationHazard==false, flatTrend==false)
+ then
+ 
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+     rule "RF02g" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("car"), previousQuestion=="Your  social media post indicates your desire to get your hands on a car. Please tell us if our understading is correct, and you are looking at buying a new car.", answer=="Yes", occupationHazard==false, flatTrend==false)
+ then
+ 
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end          
+ /*
+ rule "RF03" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("car"), firstQuestion==true, mortgageNetIncomeRatio<28.0, debtAndIncomeRatio<100.0, occupationHazard==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Nuclear safety inspector occupation may be considered as one of the high-risk professions. Your financial records indicate inactive life insurance policy. Would you be interested in exploring disability and other insurance options to protect you and your family?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+
+ rule "RF04" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("car"), firstQuestion==true, mortgageNetIncomeRatio<28.0, debtAndIncomeRatio<100.0, occupationHazard==false, flatTrend==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("We notice that the trend of average amount in your savings account is Flat. Would you like to take a re-look at your IRA contributions?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end 
+ 
+  rule "RF05" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(goal.contains("car"), firstQuestion==true, mortgageNetIncomeRatio<28.0, debtAndIncomeRatio<100.0, occupationHazard==false, flatTrend==false)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end 
+ */
+ 
+  rule "RF06" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Porsche is a high-performance dream machine to drive around. Your social media posts indicate your desire to get your hands on one. We are happy to create a roadmap with you to get you into your dream car. Please let us know if you prefer to discuss further with us?", answer=="Yes", mortgageNetIncomeRatio>=28.0)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("It is recommended that max mortgage payment not exceed 28% of you gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end 
+ 
+  rule "RF07" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Porsche is a high-performance dream machine to drive around. Your social media posts indicate your desire to get your hands on one. We are happy to create a roadmap with you to get you into your dream car. Please let us know if you prefer to discuss further with us?", answer=="Yes", mortgageNetIncomeRatio<28.0, debtAndIncomeRatio>=100.0)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Average credit card debt in the US is less than $20,000. It seems that your credit card debt may be more than you desire and need attention. Is this something that you would like to strategize with us?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end 
+  
+  rule "RF08" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Porsche is a high-performance dream machine to drive around. Your social media posts indicate your desire to get your hands on one. We are happy to create a roadmap with you to get you into your dream car. Please let us know if you prefer to discuss further with us?", answer=="Yes", mortgageNetIncomeRatio<28.0, debtAndIncomeRatio<100.0, occupationHazard==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Nuclear safety inspector occupation may be considered as one of the high-risk professions. Your financial records indicate inactive life insurance policy. Would you be interested in exploring disability and other insurance options to protect you and your family?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end   
+ 
+   rule "RF09" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Porsche is a high-performance dream machine to drive around. Your social media posts indicate your desire to get your hands on one. We are happy to create a roadmap with you to get you into your dream car. Please let us know if you prefer to discuss further with us?", answer=="Yes", mortgageNetIncomeRatio<28.0, debtAndIncomeRatio<100.0, occupationHazard==false, flatTrend==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("We notice that the trend of average amount in your savings account is Flat. Would you like to take a re-look at your IRA contributions?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end   
+ 
+    rule "RF10" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Porsche is a high-performance dream machine to drive around. Your social media posts indicate your desire to get your hands on one. We are happy to create a roadmap with you to get you into your dream car. Please let us know if you prefer to discuss further with us?", answer=="Yes", mortgageNetIncomeRatio<28.0, debtAndIncomeRatio<100.0, occupationHazard==false, flatTrend==false)
+ then
+ 
+    profileObject.setFirstQuestion(false);
+     profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end   
+
+    rule "RF15" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Porsche is a high-performance dream machine to drive around. Your social media posts indicate your desire to get your hands on one. We are happy to create a roadmap with you to get you into your dream car. Please let us know if you prefer to discuss further with us?", answer=="No", mortgageNetIncomeRatio<28.0, debtAndIncomeRatio<100.0, occupationHazard==false, flatTrend==false)
+ then
+ 
+    profileObject.setFirstQuestion(false);
+     profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end   
+  
+   rule "RF14" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Porsche is a high-performance dream machine to drive around. Your social media posts indicate your desire to get your hands on one. We are happy to create a roadmap with you to get you into your dream car. Please let us know if you prefer to discuss further with us?", answer=="No", mortgageNetIncomeRatio<28.0, debtAndIncomeRatio<100.0, occupationHazard==false, flatTrend==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("We notice that the trend of average amount in your savings account is Flat. Would you like to take a re-look at your IRA contributions?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end 
+ 
+   rule "RF13" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Porsche is a high-performance dream machine to drive around. Your social media posts indicate your desire to get your hands on one. We are happy to create a roadmap with you to get you into your dream car. Please let us know if you prefer to discuss further with us?", answer=="No", mortgageNetIncomeRatio<28.0, debtAndIncomeRatio<100.0, occupationHazard==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Nuclear safety inspector occupation may be considered as one of the high-risk professions. Your financial records indicate inactive life insurance policy. Would you be interested in exploring disability and other insurance options to protect you and your family?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+   rule "RF12" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Porsche is a high-performance dream machine to drive around. Your social media posts indicate your desire to get your hands on one. We are happy to create a roadmap with you to get you into your dream car. Please let us know if you prefer to discuss further with us?", answer=="No", mortgageNetIncomeRatio<28.0, debtAndIncomeRatio>=100.0)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Average credit card debt in the US is less than $20,000. It seems that your credit card debt may be more than you desire and need attention. Is this something that you would like to strategize with us?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end  
+ 
+   rule "RF11" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Porsche is a high-performance dream machine to drive around. Your social media posts indicate your desire to get your hands on one. We are happy to create a roadmap with you to get you into your dream car. Please let us know if you prefer to discuss further with us?", answer=="No", mortgageNetIncomeRatio>=28.0)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("It is recommended that max mortgage payment not exceed 28% of you gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end 
+
+   rule "RF16" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="It is recommended that max mortgage payment not exceed 28% of you gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?", answer=="Yes", occupationHazard==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Nuclear safety inspector occupation may be considered as one of the high-risk professions. Your financial records indicate inactive life insurance policy. Would you be interested in exploring disability and other insurance options to protect you and your family?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("e5660937-38d0-47b2-8a99-5c12d585712c");
+  profileObject.setSignalGoal(null);
+ end
+ 
+    rule "RF17" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="It is recommended that max mortgage payment not exceed 28% of you gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?", answer=="Yes", occupationHazard==false)
+ then
+ 
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal("e5660937-38d0-47b2-8a99-5c12d585712c");
+  profileObject.setSignalGoal(null);
+ end    
+ 
+    rule "RF18" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="It is recommended that max mortgage payment not exceed 28% of you gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?", answer=="No", occupationHazard==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Nuclear safety inspector occupation may be considered as one of the high-risk professions. Your financial records indicate inactive life insurance policy. Would you be interested in exploring disability and other insurance options to protect you and your family?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+     rule "RF19" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="It is recommended that max mortgage payment not exceed 28% of you gross monthly income. Your financial records on file indicate that it exceeds the recommended level. Would you like to explore refinancing options to reduce monthly mortgage payment?", answer=="No", occupationHazard==false)
+ then
+ 
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end 
+
+   rule "RF20" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Nuclear safety inspector occupation may be considered as one of the high-risk professions. Your financial records indicate inactive life insurance policy. Would you be interested in exploring disability and other insurance options to protect you and your family?", answer=="Yes", debtAndIncomeRatio>=100.0)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Average credit card debt in the US is less than $20,000. It seems that your credit card debt may be more than you desire and need attention. Is this something that you would like to strategize with us?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("2fb9d465-b146-451f-9e90-857f160f136f");
+  profileObject.setSignalGoal(null);
+ end
+
+   rule "RF21" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Nuclear safety inspector occupation may be considered as one of the high-risk professions. Your financial records indicate inactive life insurance policy. Would you be interested in exploring disability and other insurance options to protect you and your family?", answer=="Yes", debtAndIncomeRatio<100.0, flatTrend==true)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction("question");
+  profileObject.setNextQuestion("We notice that the trend of average amount in your savings account is Flat. Would you like to take a re-look at your IRA contributions?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal("2fb9d465-b146-451f-9e90-857f160f136f");
+  profileObject.setSignalGoal(null);
+ end  
+ 
+    rule "RF22" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Nuclear safety inspector occupation may be considered as one of the high-risk professions. Your financial records indicate inactive life insurance policy. Would you be interested in exploring disability and other insurance options to protect you and your family?", answer=="Yes", debtAndIncomeRatio<100.0, flatTrend==false)
+ then
+ 
+  profileObject.setFirstQuestion(false);
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal("2fb9d465-b146-451f-9e90-857f160f136f");
+  profileObject.setSignalGoal(null);
+ end
+ 
+     rule "RF23" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Nuclear safety inspector occupation may be considered as one of the high-risk professions. Your financial records indicate inactive life insurance policy. Would you be interested in exploring disability and other insurance options to protect you and your family?", answer=="No", debtAndIncomeRatio>=100.0)
+ then
+ 
+    profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Average credit card debt in the US is less than $20,000. It seems that your credit card debt may be more than you desire and need attention. Is this something that you would like to strategize with us?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+      rule "RF24" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Nuclear safety inspector occupation may be considered as one of the high-risk professions. Your financial records indicate inactive life insurance policy. Would you be interested in exploring disability and other insurance options to protect you and your family?", answer=="No", debtAndIncomeRatio<100.0, flatTrend==true)
+ then
+ 
+    profileObject.setNextAction("question");
+  profileObject.setNextQuestion("We notice that the trend of average amount in your savings account is Flat. Would you like to take a re-look at your IRA contributions?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end      
+ 
+       rule "RF25" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Nuclear safety inspector occupation may be considered as one of the high-risk professions. Your financial records indicate inactive life insurance policy. Would you be interested in exploring disability and other insurance options to protect you and your family?", answer=="No", debtAndIncomeRatio<100.0, flatTrend==false)
+ then
+ 
+    profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end      
+ 
+        rule "RF26" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Average credit card debt in the US is less than $20,000. It seems that your credit card debt may be more than you desire and need attention. Is this something that you would like to strategize with us?", answer=="Yes")
+ then
+ 
+    profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal("e5660937-38d0-47b2-8a99-5c12d585712c");
+  profileObject.setSignalGoal(null);
+ end   
+ 
+         rule "RF27" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Average credit card debt in the US is less than $20,000. It seems that your credit card debt may be more than you desire and need attention. Is this something that you would like to strategize with us?", answer=="No", flatTrend==true)
+ then
+ 
+    profileObject.setNextAction("question");
+  profileObject.setNextQuestion("We notice that the trend of average amount in your savings account is Flat. Would you like to take a re-look at your IRA contributions?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+        rule "RF28" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="Average credit card debt in the US is less than $20,000. It seems that your credit card debt may be more than you desire and need attention. Is this something that you would like to strategize with us?", answer=="No", flatTrend==false)
+ then
+ 
+    profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end    
+ 
+          rule "RF29" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="We notice that the trend of average amount in your savings account is Flat. Would you like to take a re-look at your IRA contributions?", answer=="Yes")
+ then
+ 
+    profileObject.setNextAction("question");
+  profileObject.setNextQuestion("It is wonderful that you are committed to your IRA contribution. Majority of financial advisors recommended that one continuously monitor and opportunistically rebalance IRA plans. We would love to have an opportunity to discuss your saving habits and analyze your IRA portfolio. Do you want us to recommend model portfolios customized to your needs?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+           rule "RF30" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="We notice that the trend of average amount in your savings account is Flat. Would you like to take a re-look at your IRA contributions?", answer=="No")
+ then
+ 
+    profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+           rule "RF31" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="It is wonderful that you are committed to your IRA contribution. Majority of financial advisors recommended that one continuously monitor and opportunistically rebalance IRA plans. We would love to have an opportunity to discuss your saving habits and analyze your IRA portfolio. Do you want us to recommend model portfolios customized to your needs?", answer=="Yes")
+ then
+ 
+    profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal("12c836cc-54c9-47d0-8c8f-5c12325fac70");
+  profileObject.setSignalGoal(null);
+ end
+ 
+           rule "RF32" ruleflow-group "actions"
+ when 
+  profileObject: UserProfile(previousQuestion=="It is wonderful that you are committed to your IRA contribution. Majority of financial advisors recommended that one continuously monitor and opportunistically rebalance IRA plans. We would love to have an opportunity to discuss your saving habits and analyze your IRA portfolio. Do you want us to recommend model portfolios customized to your needs?", answer=="No")
+ then
+ 
+    profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+  
+ 

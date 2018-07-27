@@ -1,0 +1,72 @@
+
+package lm.jbpmdemo;
+import lm.Profile;
+import java.util.List;
+import java.util.ArrayList;
+import java.lang.String;
+
+rule "COM001" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), firstQuestion==true, insightsList.contains("Is commuting to your workplace a problem for you?"))
+ then
+ 
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Is commuting to your workplace a problem for you?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ 
+rule "COM002" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="Is commuting to your workplace a problem for you?", previousAnswer=="Yes")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Are you looking to move to a place closer to work?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ rule "COM003" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="Is commuting to your workplace a problem for you?", previousAnswer=="No")
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+ rule "COM004" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="Are you looking to move to a place closer to work?", previousAnswer=="Yes")
+ then
+      profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Do you wish to rent a house or purchase one?");
+  List<String> options = new ArrayList<String>();
+  options.add("rent");
+  options.add("purchase");
+  profileObject.setOptions(options);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 
+  rule "COM005" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Buy a Home"), previousQuestion=="Are you looking to move to a place closer to work?", previousAnswer=="No")
+ then
+  profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  profileObject.setRecommendGoal(null);
+  profileObject.setSignalGoal(null);
+ end
+ 

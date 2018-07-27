@@ -1,0 +1,48 @@
+package lm.jbpmdemo;
+import lm.Profile;
+import java.util.List;
+import java.util.ArrayList;
+import java.lang.String;
+
+rule "IR1li" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Life Insurance"), firstQuestion==true)
+ then
+ System.out.println("goal = "+profileObject.getGoal());
+ System.out.println("isFirstQuestion = "+profileObject.getFirstQuestion());
+  profileObject.setFirstQuestion(false);
+     profileObject.setNextAction("question");
+  profileObject.setNextQuestion("Do you plan to take life insurance?");
+  List<String> options = new ArrayList<String>();
+  options.add("Yes");
+  options.add("No");
+  profileObject.setOptions(options);
+  System.out.println("user ID : "+profileObject.getUserId());
+  profileObject.setUserId(profileObject.getUserId());
+  profileObject.setRecommendGoal(null);
+    profileObject.setSignalGoal(null);
+ end
+ 
+rule "IR2li" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Life Insurance"), previousQuestion=="Do you plan to take life insurance?", previousAnswer=="Yes")
+ then
+     profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  System.out.println("user ID : "+profileObject.getUserId());
+  profileObject.setUserId(profileObject.getUserId());
+  profileObject.setRecommendGoal("2fb9d465-b146-451f-9e90-857f160f136f");
+    profileObject.setSignalGoal(null);
+ end
+ 
+rule "IR3li" ruleflow-group "actions"
+ when 
+  profileObject: Profile(goal.contains("Life Insurance"), previousQuestion=="Do you plan to take life insurance?", previousAnswer=="No")
+ then
+     profileObject.setNextAction(null);
+  profileObject.setNextQuestion(null);
+  System.out.println("user ID : "+profileObject.getUserId());
+  profileObject.setUserId(profileObject.getUserId());
+  profileObject.setRecommendGoal(null);
+    profileObject.setSignalGoal(null);
+ end
